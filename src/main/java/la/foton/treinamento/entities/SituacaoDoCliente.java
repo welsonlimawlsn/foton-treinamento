@@ -1,4 +1,4 @@
-package la.foton.treinamento.entity;
+package la.foton.treinamento.entities;
 
 public enum SituacaoDoCliente {
     ATIVO, PENDENTE;

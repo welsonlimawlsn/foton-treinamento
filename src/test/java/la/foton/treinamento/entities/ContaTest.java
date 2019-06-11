@@ -1,5 +1,7 @@
-package la.foton.treinamento.entity;
+package la.foton.treinamento.entities;
 
+import la.foton.treinamento.util.Mensagem;
+import la.foton.treinamento.util.NegocioException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +14,7 @@ public class ContaTest {
 
     @Before
     public void setUp() {
-        conta = new Conta();
+        conta = new ContaCorrente();
         conta.credita(500);
     }
 
@@ -37,46 +39,58 @@ public class ContaTest {
         try {
             conta.debita(500.01);
             fail();
-        } catch (Exception e) {
-            assertEquals("Saldo insuficiente", e.getMessage());
+        } catch (NegocioException e) {
+            assertEquals(Mensagem.SALDO_INSUFICIENTE, e.getMensagem());
             assertEquals(500, conta.getSaldo(), 0);
         }
     }
 
     @Test
     public void deveTranferirValorEntreContas() {
-        Conta contaDeCredito = new Conta();
+        Conta contaDeCredito = new ContaCorrente();
         try {
             conta.transfere(contaDeCredito, 499);
             assertEquals(1, conta.getSaldo(), 0);
             assertEquals(499, contaDeCredito.getSaldo(), 0);
-        } catch (Exception e) {
-            fail();
+        } catch (NegocioException e) {
+            fail(e.getMensagem().getDescricao());
         }
     }
 
     @Test
     public void deveEncerrarContaSemSaldo() {
         try {
+            conta.debita(500);
             conta.encerra();
             assertEquals(EstadoDaConta.ENCERRADA, conta.getEstado());
-        } catch (Exception e) {
-            fail();
+        } catch (NegocioException e) {
+            fail(e.getMensagem().getDescricao());
         }
     }
 
     @Test
     public void naoDeveEncerrarContaJaEncerrada() {
         try {
+            conta.debita(500);
             colocarAContaNoEstadoDeEncerrado();
             conta.encerra();
             fail();
-        } catch (Exception e) {
-            assertEquals("Conta já encerrada", e.getMessage());
+        } catch (NegocioException e) {
+            assertEquals(Mensagem.CONTA_JA_ENCERRADA, e.getMensagem());
         }
     }
 
-    private void colocarAContaNoEstadoDeEncerrado() throws Exception {
+    @Test
+    public void naoDeveEncerrarContaQaundoContaAindaPossuirSaldo() {
+        try {
+            conta.encerra();
+            fail();
+        } catch (NegocioException e) {
+            assertEquals(Mensagem.CONTA_POSSUI_SALDO, e.getMensagem());
+        }
+    }
+
+    private void colocarAContaNoEstadoDeEncerrado() throws NegocioException {
         conta.encerra();
     }
 
