@@ -17,12 +17,28 @@ public abstract class Conta {
         saldo = 0;
     }
 
+    public int getAgencia() {
+        return agencia;
+    }
+
     public void setAgencia(int agencia) {
         this.agencia = agencia;
     }
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
     public double getSaldo() {
         return saldo;
+    }
+
+    public Cliente getTitular() {
+        return titular;
     }
 
     public void setTitular(Cliente titular) {
@@ -31,6 +47,10 @@ public abstract class Conta {
 
     public EstadoDaConta getEstado() {
         return estado;
+    }
+
+    public TipoDaConta getTipo() {
+        return tipo;
     }
 
     public void credita(double valor) {

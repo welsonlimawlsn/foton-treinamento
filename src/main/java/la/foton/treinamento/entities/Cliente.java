@@ -10,12 +10,25 @@ public class Cliente {
         situacao = SituacaoDoCliente.PENDENTE;
     }
 
-    public SituacaoDoCliente getSituacao() {
-        return situacao;
+    public Cliente(String cpf, String nome) {
+        super();
+        this.cpf = cpf;
+        this.nome = nome;
     }
 
     public void ativa() {
         this.situacao = SituacaoDoCliente.ATIVO;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public SituacaoDoCliente getSituacao() {
+        return situacao;
+    }
 }
