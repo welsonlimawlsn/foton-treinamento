@@ -1,9 +1,18 @@
 package la.foton.treinamento.entities;
 
+import javax.persistence.*;
+
+@Entity
 public class Cliente {
 
+    @Id
     private String cpf;
+
+    @Column
     private String nome;
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
     private SituacaoDoCliente situacao;
 
     public Cliente() {

@@ -7,6 +7,9 @@ import la.foton.treinamento.entities.ContaCorrente;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -11,7 +11,8 @@ import javax.inject.Inject;
 @Stateless
 public class ContaService {
 
-    private ClienteService clienteService = ClienteService.getInstance();
+    @Inject
+    private ClienteService clienteService;
     @Inject
     private ContaDAO contaDAO;
 
