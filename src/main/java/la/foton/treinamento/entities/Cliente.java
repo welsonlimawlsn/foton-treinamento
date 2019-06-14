@@ -20,7 +20,7 @@ public class Cliente {
     }
 
     public Cliente(String cpf, String nome) {
-        super();
+        this();
         this.cpf = cpf;
         this.nome = nome;
     }
@@ -33,11 +33,23 @@ public class Cliente {
         return cpf;
     }
 
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public SituacaoDoCliente getSituacao() {
         return situacao;
+    }
+
+    public void setSituacao(SituacaoDoCliente situacao) {
+        this.situacao = situacao;
     }
 }

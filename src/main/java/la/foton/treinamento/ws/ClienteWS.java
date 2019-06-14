@@ -1,6 +1,5 @@
 package la.foton.treinamento.ws;
 
-import la.foton.treinamento.entities.Cliente;
 import la.foton.treinamento.services.ClienteService;
 import la.foton.treinamento.util.NegocioException;
 
@@ -9,7 +8,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
-import java.util.List;
 
 @Path("cliente")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,15 +33,26 @@ public class ClienteWS {
 
     @GET
     public Response listaTodos() {
-        List<Cliente> clientes;
         try {
-            clientes = clienteService.listaTodos();
+            return Response.ok(clienteService.listaTodos()).build();
         } catch (NegocioException e) {
             throw new WebApplicationException(Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(e.getMensagem().getDescricao())
                     .build());
         }
-        return Response.ok(clientes).build();
+    }
+
+    @GET
+    @Path("{cpf}")
+    public Response consultaPorCPF(@PathParam("cpf") String cpf) {
+        try {
+            return Response.ok(clienteService.consultaPorCPF(cpf)).build();
+        } catch (NegocioException e) {
+            throw new WebApplicationException(Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(e.getMensagem().getDescricao())
+                    .build());
+        }
     }
 }
