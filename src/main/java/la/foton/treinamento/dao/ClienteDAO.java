@@ -11,4 +11,8 @@ public interface ClienteDAO {
     Cliente consultaPorCPF(String cpf);
 
     List<Cliente> consultaTodos();
+
+    void atualiza(Cliente cliente);
+
+    void delete(Cliente cliente);
 }

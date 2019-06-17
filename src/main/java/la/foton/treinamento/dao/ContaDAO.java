@@ -4,7 +4,7 @@ import la.foton.treinamento.entities.Conta;
 
 public interface ContaDAO {
 
-    int geraNumero();
+    Integer geraNumero();
 
     void insere(Conta conta);
 

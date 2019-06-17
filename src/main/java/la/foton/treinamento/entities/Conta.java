@@ -2,19 +2,43 @@ package la.foton.treinamento.entities;
 
 import la.foton.treinamento.util.Mensagem;
 import la.foton.treinamento.util.NegocioException;
+import la.foton.treinamento.util.TipoDaContaConverter;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Conta {
 
-    private int agencia;
-    private int numero;
-    protected double saldo;
+    @Id
+    private Integer numero;
+
+    @Column
+    private Integer agencia;
+
+    @Column
+    protected Double saldo;
+
+    @ManyToOne
+    @JoinColumn(name = "cpf")
     private Cliente titular;
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
     private EstadoDaConta estado;
+
+    @Column
+    @Convert(converter = TipoDaContaConverter.class)
     protected TipoDaConta tipo;
+
+    @PrePersist
+    public void prePersist() {
+        this.agencia = 1234;
+    }
 
     public Conta() {
         estado = EstadoDaConta.ATIVA;
-        saldo = 0;
+        saldo = 0.0;
     }
 
     public int getAgencia() {

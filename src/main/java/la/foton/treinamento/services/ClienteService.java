@@ -25,7 +25,7 @@ public class ClienteService {
     public Cliente consultaPorCPF(String cpf) throws NegocioException {
         Cliente cliente = dao.consultaPorCPF(cpf);
         if (cliente == null) {
-            throw new NegocioException(Mensagem.CONTA_NAO_ENCONTRADA);
+            throw new NegocioException(Mensagem.CLIENTE_NAO_ENCONTRADO);
         }
         return cliente;
     }
@@ -42,5 +42,16 @@ public class ClienteService {
             throw new NegocioException(Mensagem.CLIENTE_NAO_PODE_SER_CADASTRADO);
         }
         dao.insere(new Cliente(cpf, nome));
+    }
+
+    public void ativa(String cpf) throws NegocioException {
+        Cliente cliente = consultaPorCPF(cpf);
+        cliente.ativa();
+        dao.atualiza(cliente);
+    }
+
+    public void remove(String cpf) throws NegocioException {
+        Cliente cliente = consultaPorCPF(cpf);
+        dao.delete(cliente);
     }
 }

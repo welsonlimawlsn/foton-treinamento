@@ -3,8 +3,15 @@ package la.foton.treinamento.entities;
 import la.foton.treinamento.util.Mensagem;
 import la.foton.treinamento.util.NegocioException;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ContaCorrente")
 public class ContaCorrente extends Conta {
 
+    @Column(name = "limiteChequeEspecial")
     private double limiteChequeEspecial;
 
     public ContaCorrente() {

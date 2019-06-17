@@ -1,5 +1,8 @@
 package la.foton.treinamento.util;
 
+import javax.ejb.ApplicationException;
+
+@ApplicationException(rollback = true)
 public class NegocioException extends Exception {
 
     private final Mensagem mensagem;

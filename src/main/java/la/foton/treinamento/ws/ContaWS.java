@@ -30,4 +30,26 @@ public class ContaWS {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(e.getMensagem().getDescricao()).build());
         }
     }
+
+    @PUT
+    @Path("{numero}/deposita")
+    public Response deposita(int numero, double valor) {
+
+    }
+
+
+    @PUT
+    @Path("{numero}/saca")
+    public Response saca(int numero, double valor) {
+
+    }
+
+
+    @PUT
+    @Path("transfere")
+    public Response saca(int numero, double valor) {
+
+    }
+
+
 }

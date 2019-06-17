@@ -7,12 +7,11 @@ import la.foton.treinamento.entities.ContaCorrente;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.enterprise.inject.Alternative;
 import java.util.HashMap;
 import java.util.Map;
 
+@Alternative
 @Singleton
 @Startup
 public class ContaDAOMap implements ContaDAO {
@@ -36,7 +35,7 @@ public class ContaDAOMap implements ContaDAO {
     }
 
     @Override
-    public int geraNumero() {
+    public Integer geraNumero() {
         return contas.size() + 1;
     }
 

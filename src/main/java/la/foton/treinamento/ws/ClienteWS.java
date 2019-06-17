@@ -19,40 +19,34 @@ public class ClienteWS {
 
     @POST
     @Path("/{cpf}/cadastra")
-    public Response cadastraCliente(@PathParam("cpf") String cpf, @QueryParam("nome") String nome) {
-        try {
-            clienteService.cadastraCliente(cpf, nome);
-        } catch (NegocioException e) {
-            throw new WebApplicationException(Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(e.getMensagem().getDescricao())
-                    .build());
-        }
+    public Response cadastraCliente(@PathParam("cpf") String cpf, @QueryParam("nome") String nome) throws NegocioException {
+        clienteService.cadastraCliente(cpf, nome);
         return Response.created(UriBuilder.fromPath("cliente/{cpf}").build(cpf)).build();
     }
 
     @GET
-    public Response listaTodos() {
-        try {
-            return Response.ok(clienteService.listaTodos()).build();
-        } catch (NegocioException e) {
-            throw new WebApplicationException(Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity(e.getMensagem().getDescricao())
-                    .build());
-        }
+    @Path("todos")
+    public Response listaTodos() throws NegocioException {
+        return Response.ok(clienteService.listaTodos()).build();
     }
 
     @GET
     @Path("{cpf}")
-    public Response consultaPorCPF(@PathParam("cpf") String cpf) {
-        try {
-            return Response.ok(clienteService.consultaPorCPF(cpf)).build();
-        } catch (NegocioException e) {
-            throw new WebApplicationException(Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity(e.getMensagem().getDescricao())
-                    .build());
-        }
+    public Response consultaPorCPF(@PathParam("cpf") String cpf) throws NegocioException {
+        return Response.ok(clienteService.consultaPorCPF(cpf)).build();
+    }
+
+    @PUT
+    @Path("{cpf}/ativa")
+    public Response ativaCliente(@PathParam("cpf") String cpf) throws NegocioException {
+        clienteService.ativa(cpf);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("{cpf}/remove")
+    public Response removeCliente(@PathParam("cpf") String cpf) throws NegocioException {
+        clienteService.remove(cpf);
+        return Response.noContent().build();
     }
 }
