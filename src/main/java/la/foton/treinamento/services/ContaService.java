@@ -1,6 +1,7 @@
 package la.foton.treinamento.services;
 
 import la.foton.treinamento.dao.ContaDAO;
+import la.foton.treinamento.dto.TransferenciaDTO;
 import la.foton.treinamento.entities.*;
 import la.foton.treinamento.util.Mensagem;
 import la.foton.treinamento.util.NegocioException;
@@ -35,20 +36,24 @@ public class ContaService {
         contaDAO.atualiza(conta);
     }
 
-    public void sacaEmConta(Conta conta, double valor) throws NegocioException {
+    public void sacaEmConta(int numero, double valor) throws NegocioException {
+        Conta conta = consultaPorNumero(numero);
         conta.debita(valor);
         contaDAO.atualiza(conta);
     }
 
-    public void depositaEmConta(Conta conta, double valor) {
+    public void depositaEmConta(int numero, double valor) throws NegocioException {
+        Conta conta = consultaPorNumero(numero);
         conta.credita(valor);
         contaDAO.atualiza(conta);
     }
 
-    public void transfereEntreContas(Conta origem, Conta destino, double valor) throws NegocioException {
-        origem.transfere(destino, valor);
-        contaDAO.atualiza(origem);
-        contaDAO.atualiza(destino);
+    public void transfereEntreContas(TransferenciaDTO transferencia) throws NegocioException {
+        Conta contaDebito = consultaPorNumero(transferencia.getContaDebito());
+        Conta contaCredito = consultaPorNumero(transferencia.getContaCredito());
+        contaDebito.transfere(contaCredito, transferencia.getValor());
+        contaDAO.atualiza(contaDebito);
+        contaDAO.atualiza(contaCredito);
     }
 
     public Conta consultaPorNumero(int numero) throws NegocioException {

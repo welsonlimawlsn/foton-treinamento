@@ -1,5 +1,6 @@
 package la.foton.treinamento.ws;
 
+import la.foton.treinamento.dto.TransferenciaDTO;
 import la.foton.treinamento.services.ContaService;
 import la.foton.treinamento.util.NegocioException;
 
@@ -23,32 +24,31 @@ public class ContaWS {
 
     @GET
     @Path("{numero}")
-    public Response consulta(@PathParam("numero") int numero) {
-        try {
-            return Response.ok(contaService.consultaPorNumero(numero)).build();
-        } catch (NegocioException e) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(e.getMensagem().getDescricao()).build());
-        }
+    public Response consulta(@PathParam("numero") int numero) throws NegocioException {
+        return Response.ok(contaService.consultaPorNumero(numero)).build();
     }
 
     @PUT
     @Path("{numero}/deposita")
-    public Response deposita(int numero, double valor) {
-
+    public Response deposita(@PathParam("numero") int numero, @QueryParam("valor") double valor) throws NegocioException {
+        contaService.depositaEmConta(numero, valor);
+        return Response.ok().build();
     }
 
 
     @PUT
     @Path("{numero}/saca")
-    public Response saca(int numero, double valor) {
-
+    public Response saca(@PathParam("numero") int numero, @QueryParam("valor") double valor) throws NegocioException {
+        contaService.sacaEmConta(numero, valor);
+        return Response.ok().build();
     }
 
 
     @PUT
     @Path("transfere")
-    public Response saca(int numero, double valor) {
-
+    public Response saca(TransferenciaDTO transferencia) throws NegocioException {
+        contaService.transfereEntreContas(transferencia);
+        return Response.ok().build();
     }
 
 
