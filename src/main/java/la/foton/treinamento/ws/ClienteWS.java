@@ -3,7 +3,7 @@ package la.foton.treinamento.ws;
 import la.foton.treinamento.services.ClienteService;
 import la.foton.treinamento.util.NegocioException;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.UriBuilder;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ClienteWS {
 
-    @Inject
+    @EJB
     private ClienteService clienteService;
 
     @POST

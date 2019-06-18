@@ -6,19 +6,20 @@ import la.foton.treinamento.entities.*;
 import la.foton.treinamento.util.Mensagem;
 import la.foton.treinamento.util.NegocioException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
 public class ContaService {
 
-    @Inject
+    @EJB
     private ClienteService clienteService;
     @Inject
     private ContaDAO contaDAO;
 
-    public Conta abreConta(Cliente cliente, TipoDaConta tipo) throws NegocioException {
-        cliente.ativa();
+    public Conta abreConta(String cpfCliente, TipoDaConta tipo) throws NegocioException {
+        Cliente cliente = clienteService.consultaPorCPF(cpfCliente);
         clienteService.validaSituacaoCliente(cliente);
         Conta conta = criarConta(tipo);
         conta.setTitular(cliente);
@@ -49,8 +50,8 @@ public class ContaService {
     }
 
     public void transfereEntreContas(TransferenciaDTO transferencia) throws NegocioException {
-        Conta contaDebito = consultaPorNumero(transferencia.getContaDebito());
-        Conta contaCredito = consultaPorNumero(transferencia.getContaCredito());
+        Conta contaDebito = consultaPorNumero(transferencia.getNumeroContaDebito());
+        Conta contaCredito = consultaPorNumero(transferencia.getNumeroContaCredito());
         contaDebito.transfere(contaCredito, transferencia.getValor());
         contaDAO.atualiza(contaDebito);
         contaDAO.atualiza(contaCredito);

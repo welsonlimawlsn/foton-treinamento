@@ -2,20 +2,17 @@ package la.foton.treinamento.dao;
 
 import la.foton.treinamento.entities.Cliente;
 
-import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Stateless
-@TransactionManagement(TransactionManagementType.CONTAINER)
+
 public class ClienteDAOImpl implements ClienteDAO {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void insere(Cliente cliente) {
         em.persist(cliente);
     }

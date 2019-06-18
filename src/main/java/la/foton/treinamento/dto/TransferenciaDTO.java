@@ -1,17 +1,22 @@
 package la.foton.treinamento.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement
+@XmlType(propOrder = {"numeroContaDebito", "valor", "numeroContaCredito"})
 public class TransferenciaDTO {
 
-    private Integer contaDebito;
+    private Integer numeroContaDebito;
     private Double valor;
-    private Integer contaCredito;
+    private Integer numeroContaCredito;
 
-    public Integer getContaDebito() {
-        return contaDebito;
+    public Integer getNumeroContaDebito() {
+        return numeroContaDebito;
     }
 
-    public void setContaDebito(Integer contaDebito) {
-        this.contaDebito = contaDebito;
+    public void setNumeroContaDebito(Integer numeroContaDebito) {
+        this.numeroContaDebito = numeroContaDebito;
     }
 
     public Double getValor() {
@@ -22,11 +27,11 @@ public class TransferenciaDTO {
         this.valor = valor;
     }
 
-    public Integer getContaCredito() {
-        return contaCredito;
+    public Integer getNumeroContaCredito() {
+        return numeroContaCredito;
     }
 
-    public void setContaCredito(Integer contaCredito) {
-        this.contaCredito = contaCredito;
+    public void setNumeroContaCredito(Integer numeroContaCredito) {
+        this.numeroContaCredito = numeroContaCredito;
     }
 }

@@ -22,7 +22,7 @@ public class ContaServiceTest {
     @Test
     public void deveAbrirUmaConta() {
         try {
-            Conta conta = contaService.abreConta(titular, TipoDaConta.CORRENTE);
+            Conta conta = contaService.abreConta(titular.getCpf(), TipoDaConta.CORRENTE);
             Conta contaConsultada = contaDAO.consultaPorNumero(conta.getNumero());
             assertNotNull(contaConsultada);
             assertEquals(conta.getSaldo(), contaConsultada.getSaldo(), 0);
@@ -35,7 +35,7 @@ public class ContaServiceTest {
     @Test
     public void deveAbrirUmaContaPoupanca() {
         try {
-            Conta conta = contaService.abreConta(titular, TipoDaConta.POUPANCA);
+            Conta conta = contaService.abreConta(titular.getCpf(), TipoDaConta.POUPANCA);
 
             assertEquals(1, ((ContaPoupanca) conta).getDiaAniversario());
         } catch (NegocioException e) {

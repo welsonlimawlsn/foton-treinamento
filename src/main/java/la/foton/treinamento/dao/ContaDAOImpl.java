@@ -2,14 +2,13 @@ package la.foton.treinamento.dao;
 
 import la.foton.treinamento.entities.Conta;
 
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 @Default
-@Stateless
+//@TransactionManagement(value = TransactionManagementType.CONTAINER)//opcional
 public class ContaDAOImpl implements ContaDAO {
 
     @PersistenceContext
